@@ -66,7 +66,9 @@ function Home() {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch("http://localhost:8000/history/");
+        const response = await fetch(
+          "https://ai-cold-mailer-agent-backend.onrender.com/history/"
+        );
         if (response.ok) {
           const data = await response.json();
           setEmailHistory(data);
@@ -95,10 +97,13 @@ function Home() {
     setShowNewChatButton(false);
 
     try {
-      const response = await fetch("http://localhost:8000/generate-email/", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://ai-cold-mailer-agent-backend.onrender.com/generate-email/",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
@@ -111,7 +116,9 @@ function Home() {
       setShowNewChatButton(true);
 
       // Refresh history
-      const histRes = await fetch("http://localhost:8000/history/");
+      const histRes = await fetch(
+        "https://ai-cold-mailer-agent-backend.onrender.com/history/"
+      );
       if (histRes.ok) {
         setEmailHistory(await histRes.json());
       }
@@ -139,14 +146,16 @@ function Home() {
     setDeletingId(pendingDeleteId);
     try {
       const response = await fetch(
-        `http://localhost:8000/conversation/${pendingDeleteId}`,
+        `https://ai-cold-mailer-agent-backend.onrender.com/conversation/${pendingDeleteId}`,
         {
           method: "DELETE",
         }
       );
       if (response.ok) {
         // Refresh history
-        const histRes = await fetch("http://localhost:8000/history/");
+        const histRes = await fetch(
+          "https://ai-cold-mailer-agent-backend.onrender.com/history/"
+        );
         if (histRes.ok) {
           setEmailHistory(await histRes.json());
         }

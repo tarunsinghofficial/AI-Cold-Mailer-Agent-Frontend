@@ -88,7 +88,7 @@ const ChatPage = () => {
       setStreaming(false);
       try {
         const response = await fetch(
-          `http://localhost:8000/conversation/${conversationId}`
+          `https://ai-cold-mailer-agent-backend.onrender.com/conversation/${conversationId}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -119,10 +119,13 @@ const ChatPage = () => {
       formData.append("conversation_id", conversationId);
       formData.append("user_message", userMessage);
 
-      const response = await fetch("http://localhost:8000/chat-continue/", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://ai-cold-mailer-agent-backend.onrender.com/chat-continue/",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -165,7 +168,7 @@ const ChatPage = () => {
     setDeleting(true);
     try {
       const response = await fetch(
-        `http://localhost:8000/conversation/${conversationId}`,
+        `https://ai-cold-mailer-agent-backend.onrender.com/${conversationId}`,
         {
           method: "DELETE",
         }
